@@ -1,4 +1,4 @@
-# WASTEX
+WASTEX
 
 **Real-time, multi-agent waste collection for Bengaluru, built on Apache Kafka.**
 
@@ -420,4 +420,11 @@ For a quick health check while the system runs, open <http://127.0.0.1:8000/api/
 - **Dry waste collection centres, processing-plant capacities, landfills and ward complaint records:** BBMP data published on OpenCity (<https://opencity.in>).
 - **Smart-bin telemetry:** synthetic. No public live feed exists. It is calibrated to the EDA (0.2–0.6% per minute at peak) and generated from a fixed seed, so results are reproducible.
 - **Maps:** Esri basemap, © OpenStreetMap contributors. **Road routes:** OSRM (Project OSRM public server).
+<<<<<<< HEAD
 - **Built with:** Python, FastAPI, Apache Kafka 3.7, kafka-python, Leaflet, Chart.js and IBM Plex fonts.
+=======
+- **Built with:** Python, FastAPI, Apache Kafka 3.7, kafka-python, Leaflet, Chart.js and IBM Plex fonts.
+#   w a s t e - c o l l e c t i o n - o p t i m i z a t i o n 
+ 
+ 
+>>>>>>> 83ed5dd1f3a3c77ee12e86378577ca31737b00f6
