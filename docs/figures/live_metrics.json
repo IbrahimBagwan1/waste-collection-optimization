@@ -1,0 +1,92 @@
+{
+ "bus": "Apache Kafka cluster 5L6g3nSh @ localhost:9092",
+ "speed": 3.0,
+ "sim_min": 802.0,
+ "stream": {
+  "processed": 112145,
+  "alerts": {
+   "LOW_BATTERY": 8,
+   "PREDICTED_OVERFLOW": 41,
+   "CRITICAL_FILL": 54,
+   "OVERFLOW": 36
+  },
+  "latency_p50_ms": 84.8,
+  "latency_p95_ms": 99.7
+ },
+ "jev": {
+  "cycles": 171,
+  "no_action": 126,
+  "plans": 64,
+  "replans": 5,
+  "deferred": 7,
+  "event_triggered": 10,
+  "scheduled_triggered": 161,
+  "avg_decision_ms": 2.09,
+  "scheduled": 41
+ },
+ "fleet": {
+  "km": 1182.29,
+  "co2_kg": 1123.17,
+  "collections": 191,
+  "kg_delivered": 37993.5,
+  "plant_kg": {
+   "PLT1": 0.0,
+   "PLT2": 1905.5,
+   "PLT3": 3114.0,
+   "PLT4": 0.0,
+   "PLT5": 0.0,
+   "PLT6": 32974.0,
+   "PLT7": 0.0,
+   "PLT8": 0.0
+  },
+  "active": 8
+ },
+ "rates": {
+  "bin-telemetry": 275.5,
+  "bin-analytics": 413.2,
+  "bin-alerts": 1.0,
+  "zone-aggregates": 0.0,
+  "agent-decisions": 0.0,
+  "collection-plans": 0.0,
+  "fleet-status": 15.7,
+  "collection-events": 0.0
+ },
+ "produced": 233643,
+ "lag": {
+  "wastex-dashboard-bridge": 0,
+  "wastex-stream-processor": 0,
+  "wastex-jev-orchestrator": 0,
+  "wastex-fleet-simulator": 0,
+  "wastex-iot-gateway": 0
+ },
+ "messages": {
+  "bin-telemetry": 186480,
+  "bin-analytics": 186290,
+  "bin-alerts": 917,
+  "zone-aggregates": 3715,
+  "agent-decisions": 353,
+  "collection-plans": 172,
+  "fleet-status": 10624,
+  "collection-events": 443
+ },
+ "avg_fill_at_collection": 73.6,
+ "truth": {
+  "bins": 140,
+  "overflowing_now": 5,
+  "overflow_events": 33,
+  "scenario_counts": {
+   "normal": 112280,
+   "demand": 0,
+   "surge": 0,
+   "anomaly": 0
+  },
+  "demand_mode": false,
+  "surge_zones": {}
+ },
+ "alert_counts": {
+  "LOW_BATTERY": 8,
+  "PREDICTED_OVERFLOW": 41,
+  "CRITICAL_FILL": 54,
+  "OVERFLOW": 36
+ }
+}

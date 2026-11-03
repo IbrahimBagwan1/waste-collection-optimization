@@ -1,0 +1,8 @@
+# WASTEX runtime
+fastapi>=0.110,<1
+uvicorn[standard]>=0.29
+pydantic>=2.5,<3
+kafka-python>=2.2,<4
+# report regeneration only (docs/build_report.py, docs/make_figures.py)
+python-docx>=1.1
+matplotlib>=3.7

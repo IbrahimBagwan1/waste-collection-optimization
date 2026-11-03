@@ -1,0 +1,933 @@
+{
+  "hours": 24,
+  "bins": 140,
+  "trucks": 8,
+  "fixed": {
+    "strategy": "fixed",
+    "km": 804.6,
+    "co2_kg": 764.4,
+    "cost_inr": 33794,
+    "collections": 280,
+    "avg_fill_at_collection": 72.1,
+    "overflow_bin_minutes": 6512,
+    "overflow_events": 62,
+    "km_per_collection": 2.87,
+    "trips": 19,
+    "disposal_trips": 19,
+    "plant_km": 278.5,
+    "avg_stops_per_trip": 14.7,
+    "series": [
+      {
+        "minute": 0,
+        "hour": 7.0,
+        "overflowing": 0,
+        "avg_fill": 55.6
+      },
+      {
+        "minute": 30,
+        "hour": 7.5,
+        "overflowing": 1,
+        "avg_fill": 59.3
+      },
+      {
+        "minute": 60,
+        "hour": 8.0,
+        "overflowing": 5,
+        "avg_fill": 50.5
+      },
+      {
+        "minute": 90,
+        "hour": 8.5,
+        "overflowing": 9,
+        "avg_fill": 38.6
+      },
+      {
+        "minute": 120,
+        "hour": 9.0,
+        "overflowing": 10,
+        "avg_fill": 32.1
+      },
+      {
+        "minute": 150,
+        "hour": 9.5,
+        "overflowing": 9,
+        "avg_fill": 28.6
+      },
+      {
+        "minute": 180,
+        "hour": 10.0,
+        "overflowing": 7,
+        "avg_fill": 26.5
+      },
+      {
+        "minute": 210,
+        "hour": 10.5,
+        "overflowing": 7,
+        "avg_fill": 28.8
+      },
+      {
+        "minute": 240,
+        "hour": 11.0,
+        "overflowing": 4,
+        "avg_fill": 27.6
+      },
+      {
+        "minute": 270,
+        "hour": 11.5,
+        "overflowing": 3,
+        "avg_fill": 29.0
+      },
+      {
+        "minute": 300,
+        "hour": 12.0,
+        "overflowing": 2,
+        "avg_fill": 30.6
+      },
+      {
+        "minute": 330,
+        "hour": 12.5,
+        "overflowing": 1,
+        "avg_fill": 29.8
+      },
+      {
+        "minute": 360,
+        "hour": 13.0,
+        "overflowing": 1,
+        "avg_fill": 31.3
+      },
+      {
+        "minute": 390,
+        "hour": 13.5,
+        "overflowing": 1,
+        "avg_fill": 33.0
+      },
+      {
+        "minute": 420,
+        "hour": 14.0,
+        "overflowing": 1,
+        "avg_fill": 34.6
+      },
+      {
+        "minute": 450,
+        "hour": 14.5,
+        "overflowing": 1,
+        "avg_fill": 36.3
+      },
+      {
+        "minute": 480,
+        "hour": 15.0,
+        "overflowing": 1,
+        "avg_fill": 37.9
+      },
+      {
+        "minute": 510,
+        "hour": 15.5,
+        "overflowing": 1,
+        "avg_fill": 39.6
+      },
+      {
+        "minute": 540,
+        "hour": 16.0,
+        "overflowing": 2,
+        "avg_fill": 41.4
+      },
+      {
+        "minute": 570,
+        "hour": 16.5,
+        "overflowing": 2,
+        "avg_fill": 43.3
+      },
+      {
+        "minute": 600,
+        "hour": 17.0,
+        "overflowing": 2,
+        "avg_fill": 45.5
+      },
+      {
+        "minute": 630,
+        "hour": 17.5,
+        "overflowing": 4,
+        "avg_fill": 48.1
+      },
+      {
+        "minute": 660,
+        "hour": 18.0,
+        "overflowing": 6,
+        "avg_fill": 51.2
+      },
+      {
+        "minute": 690,
+        "hour": 18.5,
+        "overflowing": 10,
+        "avg_fill": 54.3
+      },
+      {
+        "minute": 720,
+        "hour": 19.0,
+        "overflowing": 10,
+        "avg_fill": 55.0
+      },
+      {
+        "minute": 750,
+        "hour": 19.5,
+        "overflowing": 13,
+        "avg_fill": 50.7
+      },
+      {
+        "minute": 780,
+        "hour": 20.0,
+        "overflowing": 15,
+        "avg_fill": 47.0
+      },
+      {
+        "minute": 810,
+        "hour": 20.5,
+        "overflowing": 11,
+        "avg_fill": 40.3
+      },
+      {
+        "minute": 840,
+        "hour": 21.0,
+        "overflowing": 9,
+        "avg_fill": 34.7
+      },
+      {
+        "minute": 870,
+        "hour": 21.5,
+        "overflowing": 9,
+        "avg_fill": 31.7
+      },
+      {
+        "minute": 900,
+        "hour": 22.0,
+        "overflowing": 7,
+        "avg_fill": 30.2
+      },
+      {
+        "minute": 930,
+        "hour": 22.5,
+        "overflowing": 6,
+        "avg_fill": 31.9
+      },
+      {
+        "minute": 960,
+        "hour": 23.0,
+        "overflowing": 6,
+        "avg_fill": 32.3
+      },
+      {
+        "minute": 990,
+        "hour": 23.5,
+        "overflowing": 6,
+        "avg_fill": 31.7
+      },
+      {
+        "minute": 1020,
+        "hour": 0.0,
+        "overflowing": 2,
+        "avg_fill": 28.1
+      },
+      {
+        "minute": 1050,
+        "hour": 0.5,
+        "overflowing": 2,
+        "avg_fill": 29.1
+      },
+      {
+        "minute": 1080,
+        "hour": 1.0,
+        "overflowing": 2,
+        "avg_fill": 30.7
+      },
+      {
+        "minute": 1110,
+        "hour": 1.5,
+        "overflowing": 1,
+        "avg_fill": 31.0
+      },
+      {
+        "minute": 1140,
+        "hour": 2.0,
+        "overflowing": 1,
+        "avg_fill": 32.6
+      },
+      {
+        "minute": 1170,
+        "hour": 2.5,
+        "overflowing": 1,
+        "avg_fill": 34.3
+      },
+      {
+        "minute": 1200,
+        "hour": 3.0,
+        "overflowing": 1,
+        "avg_fill": 35.9
+      },
+      {
+        "minute": 1230,
+        "hour": 3.5,
+        "overflowing": 1,
+        "avg_fill": 37.5
+      },
+      {
+        "minute": 1260,
+        "hour": 4.0,
+        "overflowing": 1,
+        "avg_fill": 39.2
+      },
+      {
+        "minute": 1290,
+        "hour": 4.5,
+        "overflowing": 1,
+        "avg_fill": 40.8
+      },
+      {
+        "minute": 1320,
+        "hour": 5.0,
+        "overflowing": 2,
+        "avg_fill": 42.5
+      },
+      {
+        "minute": 1350,
+        "hour": 5.5,
+        "overflowing": 3,
+        "avg_fill": 44.2
+      },
+      {
+        "minute": 1380,
+        "hour": 6.0,
+        "overflowing": 3,
+        "avg_fill": 46.1
+      },
+      {
+        "minute": 1410,
+        "hour": 6.5,
+        "overflowing": 5,
+        "avg_fill": 48.3
+      }
+    ]
+  },
+  "fixed4": {
+    "strategy": "fixed4",
+    "km": 1264.1,
+    "co2_kg": 1200.9,
+    "cost_inr": 53093,
+    "collections": 519,
+    "avg_fill_at_collection": 50.5,
+    "overflow_bin_minutes": 2816,
+    "overflow_events": 33,
+    "km_per_collection": 2.44,
+    "trips": 23,
+    "disposal_trips": 23,
+    "plant_km": 340.2,
+    "avg_stops_per_trip": 22.6,
+    "series": [
+      {
+        "minute": 0,
+        "hour": 7.0,
+        "overflowing": 0,
+        "avg_fill": 55.6
+      },
+      {
+        "minute": 30,
+        "hour": 7.5,
+        "overflowing": 1,
+        "avg_fill": 59.3
+      },
+      {
+        "minute": 60,
+        "hour": 8.0,
+        "overflowing": 5,
+        "avg_fill": 50.5
+      },
+      {
+        "minute": 90,
+        "hour": 8.5,
+        "overflowing": 9,
+        "avg_fill": 38.6
+      },
+      {
+        "minute": 120,
+        "hour": 9.0,
+        "overflowing": 10,
+        "avg_fill": 32.1
+      },
+      {
+        "minute": 150,
+        "hour": 9.5,
+        "overflowing": 9,
+        "avg_fill": 28.6
+      },
+      {
+        "minute": 180,
+        "hour": 10.0,
+        "overflowing": 7,
+        "avg_fill": 26.5
+      },
+      {
+        "minute": 210,
+        "hour": 10.5,
+        "overflowing": 7,
+        "avg_fill": 28.8
+      },
+      {
+        "minute": 240,
+        "hour": 11.0,
+        "overflowing": 4,
+        "avg_fill": 27.6
+      },
+      {
+        "minute": 270,
+        "hour": 11.5,
+        "overflowing": 3,
+        "avg_fill": 29.0
+      },
+      {
+        "minute": 300,
+        "hour": 12.0,
+        "overflowing": 2,
+        "avg_fill": 30.6
+      },
+      {
+        "minute": 330,
+        "hour": 12.5,
+        "overflowing": 1,
+        "avg_fill": 29.8
+      },
+      {
+        "minute": 360,
+        "hour": 13.0,
+        "overflowing": 1,
+        "avg_fill": 30.9
+      },
+      {
+        "minute": 390,
+        "hour": 13.5,
+        "overflowing": 0,
+        "avg_fill": 30.1
+      },
+      {
+        "minute": 420,
+        "hour": 14.0,
+        "overflowing": 0,
+        "avg_fill": 27.9
+      },
+      {
+        "minute": 450,
+        "hour": 14.5,
+        "overflowing": 0,
+        "avg_fill": 25.7
+      },
+      {
+        "minute": 480,
+        "hour": 15.0,
+        "overflowing": 0,
+        "avg_fill": 22.4
+      },
+      {
+        "minute": 510,
+        "hour": 15.5,
+        "overflowing": 0,
+        "avg_fill": 19.5
+      },
+      {
+        "minute": 540,
+        "hour": 16.0,
+        "overflowing": 0,
+        "avg_fill": 16.8
+      },
+      {
+        "minute": 570,
+        "hour": 16.5,
+        "overflowing": 0,
+        "avg_fill": 15.8
+      },
+      {
+        "minute": 600,
+        "hour": 17.0,
+        "overflowing": 0,
+        "avg_fill": 14.2
+      },
+      {
+        "minute": 630,
+        "hour": 17.5,
+        "overflowing": 0,
+        "avg_fill": 14.0
+      },
+      {
+        "minute": 660,
+        "hour": 18.0,
+        "overflowing": 0,
+        "avg_fill": 16.9
+      },
+      {
+        "minute": 690,
+        "hour": 18.5,
+        "overflowing": 0,
+        "avg_fill": 19.4
+      },
+      {
+        "minute": 720,
+        "hour": 19.0,
+        "overflowing": 0,
+        "avg_fill": 23.4
+      },
+      {
+        "minute": 750,
+        "hour": 19.5,
+        "overflowing": 0,
+        "avg_fill": 26.0
+      },
+      {
+        "minute": 780,
+        "hour": 20.0,
+        "overflowing": 1,
+        "avg_fill": 29.7
+      },
+      {
+        "minute": 810,
+        "hour": 20.5,
+        "overflowing": 1,
+        "avg_fill": 32.7
+      },
+      {
+        "minute": 840,
+        "hour": 21.0,
+        "overflowing": 2,
+        "avg_fill": 34.2
+      },
+      {
+        "minute": 870,
+        "hour": 21.5,
+        "overflowing": 3,
+        "avg_fill": 35.9
+      },
+      {
+        "minute": 900,
+        "hour": 22.0,
+        "overflowing": 5,
+        "avg_fill": 35.8
+      },
+      {
+        "minute": 930,
+        "hour": 22.5,
+        "overflowing": 6,
+        "avg_fill": 35.7
+      },
+      {
+        "minute": 960,
+        "hour": 23.0,
+        "overflowing": 6,
+        "avg_fill": 32.4
+      },
+      {
+        "minute": 990,
+        "hour": 23.5,
+        "overflowing": 4,
+        "avg_fill": 29.1
+      },
+      {
+        "minute": 1020,
+        "hour": 0.0,
+        "overflowing": 2,
+        "avg_fill": 24.5
+      },
+      {
+        "minute": 1050,
+        "hour": 0.5,
+        "overflowing": 1,
+        "avg_fill": 21.6
+      },
+      {
+        "minute": 1080,
+        "hour": 1.0,
+        "overflowing": 1,
+        "avg_fill": 19.7
+      },
+      {
+        "minute": 1110,
+        "hour": 1.5,
+        "overflowing": 1,
+        "avg_fill": 20.1
+      },
+      {
+        "minute": 1140,
+        "hour": 2.0,
+        "overflowing": 0,
+        "avg_fill": 18.3
+      },
+      {
+        "minute": 1170,
+        "hour": 2.5,
+        "overflowing": 0,
+        "avg_fill": 17.7
+      },
+      {
+        "minute": 1200,
+        "hour": 3.0,
+        "overflowing": 0,
+        "avg_fill": 16.1
+      },
+      {
+        "minute": 1230,
+        "hour": 3.5,
+        "overflowing": 0,
+        "avg_fill": 14.1
+      },
+      {
+        "minute": 1260,
+        "hour": 4.0,
+        "overflowing": 0,
+        "avg_fill": 12.9
+      },
+      {
+        "minute": 1290,
+        "hour": 4.5,
+        "overflowing": 0,
+        "avg_fill": 11.5
+      },
+      {
+        "minute": 1320,
+        "hour": 5.0,
+        "overflowing": 0,
+        "avg_fill": 12.0
+      },
+      {
+        "minute": 1350,
+        "hour": 5.5,
+        "overflowing": 0,
+        "avg_fill": 13.3
+      },
+      {
+        "minute": 1380,
+        "hour": 6.0,
+        "overflowing": 0,
+        "avg_fill": 14.5
+      },
+      {
+        "minute": 1410,
+        "hour": 6.5,
+        "overflowing": 0,
+        "avg_fill": 16.3
+      }
+    ]
+  },
+  "wastex": {
+    "strategy": "wastex",
+    "km": 1297.6,
+    "co2_kg": 1232.7,
+    "cost_inr": 54498,
+    "collections": 302,
+    "avg_fill_at_collection": 78.6,
+    "overflow_bin_minutes": 467,
+    "overflow_events": 15,
+    "km_per_collection": 4.3,
+    "trips": 58,
+    "disposal_trips": 27,
+    "plant_km": 389.2,
+    "avg_stops_per_trip": 5.2,
+    "series": [
+      {
+        "minute": 0,
+        "hour": 7.0,
+        "overflowing": 0,
+        "avg_fill": 55.6
+      },
+      {
+        "minute": 30,
+        "hour": 7.5,
+        "overflowing": 0,
+        "avg_fill": 53.0
+      },
+      {
+        "minute": 60,
+        "hour": 8.0,
+        "overflowing": 3,
+        "avg_fill": 43.6
+      },
+      {
+        "minute": 90,
+        "hour": 8.5,
+        "overflowing": 4,
+        "avg_fill": 37.6
+      },
+      {
+        "minute": 120,
+        "hour": 9.0,
+        "overflowing": 2,
+        "avg_fill": 35.6
+      },
+      {
+        "minute": 150,
+        "hour": 9.5,
+        "overflowing": 0,
+        "avg_fill": 35.5
+      },
+      {
+        "minute": 180,
+        "hour": 10.0,
+        "overflowing": 0,
+        "avg_fill": 36.2
+      },
+      {
+        "minute": 210,
+        "hour": 10.5,
+        "overflowing": 0,
+        "avg_fill": 38.9
+      },
+      {
+        "minute": 240,
+        "hour": 11.0,
+        "overflowing": 0,
+        "avg_fill": 41.6
+      },
+      {
+        "minute": 270,
+        "hour": 11.5,
+        "overflowing": 0,
+        "avg_fill": 41.7
+      },
+      {
+        "minute": 300,
+        "hour": 12.0,
+        "overflowing": 0,
+        "avg_fill": 40.7
+      },
+      {
+        "minute": 330,
+        "hour": 12.5,
+        "overflowing": 0,
+        "avg_fill": 39.9
+      },
+      {
+        "minute": 360,
+        "hour": 13.0,
+        "overflowing": 0,
+        "avg_fill": 41.7
+      },
+      {
+        "minute": 390,
+        "hour": 13.5,
+        "overflowing": 0,
+        "avg_fill": 42.9
+      },
+      {
+        "minute": 420,
+        "hour": 14.0,
+        "overflowing": 0,
+        "avg_fill": 42.3
+      },
+      {
+        "minute": 450,
+        "hour": 14.5,
+        "overflowing": 0,
+        "avg_fill": 44.0
+      },
+      {
+        "minute": 480,
+        "hour": 15.0,
+        "overflowing": 0,
+        "avg_fill": 43.7
+      },
+      {
+        "minute": 510,
+        "hour": 15.5,
+        "overflowing": 0,
+        "avg_fill": 42.8
+      },
+      {
+        "minute": 540,
+        "hour": 16.0,
+        "overflowing": 0,
+        "avg_fill": 42.3
+      },
+      {
+        "minute": 570,
+        "hour": 16.5,
+        "overflowing": 0,
+        "avg_fill": 39.6
+      },
+      {
+        "minute": 600,
+        "hour": 17.0,
+        "overflowing": 0,
+        "avg_fill": 37.0
+      },
+      {
+        "minute": 630,
+        "hour": 17.5,
+        "overflowing": 0,
+        "avg_fill": 36.5
+      },
+      {
+        "minute": 660,
+        "hour": 18.0,
+        "overflowing": 1,
+        "avg_fill": 37.2
+      },
+      {
+        "minute": 690,
+        "hour": 18.5,
+        "overflowing": 1,
+        "avg_fill": 36.5
+      },
+      {
+        "minute": 720,
+        "hour": 19.0,
+        "overflowing": 0,
+        "avg_fill": 36.4
+      },
+      {
+        "minute": 750,
+        "hour": 19.5,
+        "overflowing": 1,
+        "avg_fill": 39.3
+      },
+      {
+        "minute": 780,
+        "hour": 20.0,
+        "overflowing": 1,
+        "avg_fill": 42.5
+      },
+      {
+        "minute": 810,
+        "hour": 20.5,
+        "overflowing": 0,
+        "avg_fill": 43.7
+      },
+      {
+        "minute": 840,
+        "hour": 21.0,
+        "overflowing": 0,
+        "avg_fill": 43.3
+      },
+      {
+        "minute": 870,
+        "hour": 21.5,
+        "overflowing": 0,
+        "avg_fill": 44.7
+      },
+      {
+        "minute": 900,
+        "hour": 22.0,
+        "overflowing": 1,
+        "avg_fill": 41.9
+      },
+      {
+        "minute": 930,
+        "hour": 22.5,
+        "overflowing": 1,
+        "avg_fill": 37.8
+      },
+      {
+        "minute": 960,
+        "hour": 23.0,
+        "overflowing": 0,
+        "avg_fill": 37.7
+      },
+      {
+        "minute": 990,
+        "hour": 23.5,
+        "overflowing": 0,
+        "avg_fill": 39.9
+      },
+      {
+        "minute": 1020,
+        "hour": 0.0,
+        "overflowing": 0,
+        "avg_fill": 41.9
+      },
+      {
+        "minute": 1050,
+        "hour": 0.5,
+        "overflowing": 0,
+        "avg_fill": 40.9
+      },
+      {
+        "minute": 1080,
+        "hour": 1.0,
+        "overflowing": 0,
+        "avg_fill": 41.5
+      },
+      {
+        "minute": 1110,
+        "hour": 1.5,
+        "overflowing": 0,
+        "avg_fill": 43.2
+      },
+      {
+        "minute": 1140,
+        "hour": 2.0,
+        "overflowing": 0,
+        "avg_fill": 44.0
+      },
+      {
+        "minute": 1170,
+        "hour": 2.5,
+        "overflowing": 0,
+        "avg_fill": 41.5
+      },
+      {
+        "minute": 1200,
+        "hour": 3.0,
+        "overflowing": 0,
+        "avg_fill": 42.0
+      },
+      {
+        "minute": 1230,
+        "hour": 3.5,
+        "overflowing": 0,
+        "avg_fill": 40.0
+      },
+      {
+        "minute": 1260,
+        "hour": 4.0,
+        "overflowing": 0,
+        "avg_fill": 39.0
+      },
+      {
+        "minute": 1290,
+        "hour": 4.5,
+        "overflowing": 0,
+        "avg_fill": 38.6
+      },
+      {
+        "minute": 1320,
+        "hour": 5.0,
+        "overflowing": 0,
+        "avg_fill": 38.0
+      },
+      {
+        "minute": 1350,
+        "hour": 5.5,
+        "overflowing": 0,
+        "avg_fill": 38.0
+      },
+      {
+        "minute": 1380,
+        "hour": 6.0,
+        "overflowing": 0,
+        "avg_fill": 38.3
+      },
+      {
+        "minute": 1410,
+        "hour": 6.5,
+        "overflowing": 0,
+        "avg_fill": 37.4
+      }
+    ]
+  },
+  "improvement": {
+    "overflow_bin_minutes_pct": 92.8,
+    "overflow_events_pct": 75.8,
+    "km_per_collection_pct": -49.8,
+    "fill_at_collection_gain": 6.5
+  },
+  "improvement_vs_fixed4": {
+    "overflow_bin_minutes_pct": 83.4,
+    "overflow_events_pct": 54.5,
+    "km_pct": -2.7,
+    "collections_pct": 41.8,
+    "fill_at_collection_gain": 28.1
+  }
+}

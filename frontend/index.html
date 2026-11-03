@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WASTEX · Multi-Agent Waste Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="app">
+  <!-- ============================== SIDEBAR ============================== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="m9 14 2 2 4-4"/></svg></div>
+      <div><div class="brand-name">WASTEX</div><div class="brand-sub">Waste collection intelligence · Bengaluru</div></div>
+    </div>
+    <nav class="nav">
+      <div class="nav-group">Operations</div>
+      <a data-view="command" class="active"><span class="ni" data-icon="grid"></span>Command Center</a>
+      <a data-view="route"><span class="ni" data-icon="route"></span>Route Optimizer</a>
+      <a data-view="fleet"><span class="ni" data-icon="truck"></span>Fleet &amp; Plants</a>
+      <div class="nav-group">Streaming</div>
+      <a data-view="pipeline"><span class="ni" data-icon="layers"></span>Kafka Pipeline</a>
+      <a data-view="analytics"><span class="ni" data-icon="activity"></span>Stream Analytics</a>
+      <a data-view="lab"><span class="ni" data-icon="flask"></span>Kafka Lab</a>
+      <div class="nav-group">Decisions</div>
+      <a data-view="agents"><span class="ni" data-icon="network"></span>JEV Agents</a>
+      <a data-view="insights"><span class="ni" data-icon="chart"></span>Insights &amp; Results</a>
+      <a data-view="about"><span class="ni" data-icon="info"></span>Architecture</a>
+    </nav>
+    <div class="side-card">
+      <div class="side-title">Scenario controls</div>
+      <div class="ctl-row">
+        <button class="btn icon" id="btnPause" title="Pause / resume" data-icon="pause"></button>
+        <div class="speed">
+          <input type="range" id="speed" min="0.5" max="8" step="0.5" value="1">
+          <span id="speedLbl">1×</span>
+        </div>
+      </div>
+      <button class="btn wide" id="btnDemand">Demand spike <span class="pill off" id="demandPill">Off</span></button>
+      <div class="ctl-row">
+        <select id="surgeZone" class="sel"></select>
+        <button class="btn" id="btnSurge">Surge</button>
+      </div>
+      <div class="ctl-row">
+        <select id="anomalyKind" class="sel">
+          <option value="fire">Fire</option><option value="spike">Sensor spike</option>
+          <option value="tamper">Tampering</option><option value="battery">Low battery</option>
+        </select>
+        <button class="btn" id="btnAnomaly">Inject</button>
+      </div>
+      <button class="btn wide" id="btnBreakdown">Break down a truck</button>
+      <button class="btn wide accent" id="btnSlide13">Run slide-13 scenario</button>
+      <button class="btn wide ghost" id="btnPlan">Run a planning cycle now</button>
+    </div>
+    <div class="side-foot">
+      <div class="bus" id="busBadge"><span class="dot"></span><span id="busText">connecting…</span></div>
+      <div class="team">RVCE · Dept. of AIML · SPA Lab 2026-27</div>
+    </div>
+  </aside>
+
+  <!-- ============================== MAIN ============================== -->
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1 id="viewTitle">Command Center</h1>
+        <div class="subtitle" id="viewSub">Real-time smart-bin telemetry → Kafka → stream analytics → JEV multi-agent decisions</div>
+      </div>
+      <div class="clock">
+        <div class="clock-time" id="clockTime">--:--</div>
+        <div class="clock-day"><span id="clockDay">simulated time</span> · <span id="liveTag" class="live">Live</span></div>
+      </div>
+    </header>
+
+    <!-- ====================== COMMAND CENTER ====================== -->
+    <section class="view active" id="view-command">
+      <div class="kpis" id="kpis"></div>
+      <div class="grid g-map">
+        <div class="card map-card">
+          <div class="card-h"><h3>Bengaluru · live bin & fleet map</h3>
+            <label class="toggle"><input type="checkbox" id="heatToggle" checked> hotspot heat</label>
+            <div class="legend">
+              <span><i style="background:var(--ok)"></i>&lt;50%</span><span><i style="background:var(--mid)"></i>50-75</span>
+              <span><i style="background:var(--warn)"></i>75-90</span><span><i style="background:var(--bad)"></i>≥90</span>
+              <span><i style="background:var(--fault)"></i>fault</span><span><i class="sq" style="background:#3d8bd9"></i>truck</span>
+              <span><i class="sq" style="background:#c2417a"></i>plant</span>
+            </div>
+          </div>
+          <div id="map"></div>
+        </div>
+        <div class="stack">
+          <div class="card grow">
+            <div class="card-h"><h3>Live alerts <span class="muted">· bin-alerts</span></h3><span class="badge" id="alertCount">0</span></div>
+            <div class="feed" id="alertFeed"></div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h3>Latest JEV decision</h3><a class="link" data-goto="agents">open trace →</a></div>
+            <div id="lastDecision" class="last-dec"></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid g-3">
+        <div class="card"><div class="card-h"><h3>Zone fill levels</h3><span class="muted">avg vs max · live</span></div><div class="chart-box"><canvas id="chZones"></canvas></div></div>
+        <div class="card"><div class="card-h"><h3>City-wide trend</h3><span class="muted">every 5 sim-min</span></div><div class="chart-box"><canvas id="chTrend"></canvas></div></div>
+        <div class="card"><div class="card-h"><h3>Collections</h3><span class="muted">collection-events</span></div><div class="feed small" id="collFeed"></div></div>
+      </div>
+    </section>
+
+    <!-- ====================== KAFKA PIPELINE (LIVE) ====================== -->
+    <section class="view" id="view-pipeline">
+      <div class="card">
+        <div class="card-h"><h3>Event-driven topology</h3><span class="muted">messages flowing right now · width ∝ throughput</span></div>
+        <div id="topology" class="topology"></div>
+      </div>
+      <div class="grid g-2">
+        <div class="card">
+          <div class="card-h"><h3>Topics &amp; partitions</h3><span class="muted" id="busDesc"></span></div>
+          <div id="topicCards" class="topic-cards"></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h3>Consumer groups · committed offsets &amp; lag</h3></div>
+          <div id="groupTable"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3>Message inspector</h3>
+          <div class="tabs" id="tailTabs"></div>
+        </div>
+        <div class="tail" id="tail"></div>
+      </div>
+    </section>
+
+    <!-- ====================== KAFKA LAB (SIMULATION) ====================== -->
+    <section class="view" id="view-lab">
+      <div class="grid g-lab">
+        <div class="card">
+          <div class="card-h"><h3>Kafka internals simulator</h3><span class="muted">producers · partitions · replicas · consumer groups</span></div>
+          <canvas id="labCanvas" class="lab-canvas"></canvas>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <div class="card-h"><h3>Controls</h3></div>
+            <div class="lab-ctl">
+              <label>Producer rate <b id="lRateL">4 msg/s</b><input type="range" id="lRate" min="1" max="20" value="4"></label>
+              <label>Partitions <b id="lPartL">4</b><input type="range" id="lPart" min="1" max="6" value="4"></label>
+              <label>Consumers in group <b id="lConsL">2</b><input type="range" id="lCons" min="1" max="6" value="2"></label>
+              <label>Consumer speed <b id="lSpeedL">6 msg/s</b><input type="range" id="lSpeed" min="1" max="20" value="6"></label>
+              <div class="seg" id="lKeyMode"><button class="on" data-v="key">Keyed (bin_id)</button><button data-v="rr">Round-robin</button></div>
+              <div class="seg" id="lAcks"><button data-v="0">acks=0</button><button class="on" data-v="1">acks=1</button><button data-v="all">acks=all</button></div>
+              <div class="btn-row">
+                <button class="btn" id="lKillBroker">Kill a broker</button>
+                <button class="btn" id="lRestore">Restore brokers</button>
+              </div>
+              <div class="btn-row">
+                <button class="btn" id="lBurst">Burst of 50</button>
+                <button class="btn" id="lReset">Reset</button>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h3>Metrics</h3></div>
+            <div class="lab-metrics" id="labMetrics"></div>
+          </div>
+          <div class="card grow">
+            <div class="card-h"><h3>Event log</h3></div>
+            <div class="feed small mono" id="labLog"></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid g-3 explain">
+        <div class="card"><h4>Partitioning</h4><p>A record's key is hashed with <b>murmur2</b>; <code>partition = hash(key) mod N</code>. Every reading of the same bin lands in the same partition, so per-bin ordering is guaranteed — exactly how <code>bin-telemetry</code> is keyed by <code>bin_id</code>.</p></div>
+        <div class="card"><h4>Consumer groups</h4><p>Each partition is owned by exactly one consumer of a group. Add or remove consumers and watch the <b>rebalance</b> (range assignor). More consumers than partitions ⇒ idle consumers. Slow consumers ⇒ <b>lag</b> = log-end offset − committed offset.</p></div>
+        <div class="card"><h4>Replication</h4><p>Each partition has a <b>leader</b> and followers on 3 brokers (RF = 3). Kill a broker: the controller elects a new leader from the <b>ISR</b>, producers and consumers fail over and no committed data is lost with <code>acks=all</code>.</p></div>
+      </div>
+    </section>
+
+    <!-- ====================== AGENTS ====================== -->
+    <section class="view" id="view-agents">
+      <div class="grid g-agents">
+        <div class="card">
+          <div class="card-h"><h3>Decision log</h3><span class="muted">agent-decisions</span></div>
+          <div class="dec-list" id="decList"></div>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <div class="card-h"><h3>Adaptive multi-agent workflow</h3><span class="muted" id="flowLabel">select a decision</span></div>
+            <div id="flow" class="flow"></div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h3>Reasoning trace</h3><span class="muted" id="traceMeta"></span></div>
+            <div id="trace" class="trace"></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid g-3">
+        <div class="card agent-card waste"><div class="ag-ico" data-icon="trash" data-size="18"></div><h4>Agent 1 · Waste Intelligence</h4><p>WHAT needs attention? Scores every bin from fill level, sliding-window fill rate, overflow ETA, ward complaint history and anomalies → HIGH / MEDIUM / LOW.</p><div class="formula">0.35·fill + 0.35·urgency + 0.15·rate + 0.15·history</div></div>
+        <div class="card agent-card route"><div class="ag-ico" data-icon="route" data-size="18"></div><h4>Agent 2 · Route Planner</h4><p>HOW should we collect? Capacity-constrained clustering, opportunistic pickup of nearby bins, batching, nearest-neighbour + 2-opt sequencing, traffic-aware time, plant selection by utilisation.</p><div class="formula">road km = haversine × 1.35 · peak 14 km/h</div></div>
+        <div class="card agent-card fleet"><div class="ag-ico" data-icon="truck" data-size="18"></div><h4>Agent 3 · Fleet Manager</h4><p>WHO collects it? Checks availability, capacity, current load and location of every truck; best-fit on dead-head km + spare capacity; supports dynamic insertion into running routes.</p><div class="formula">score = deadhead + 6·slack (+4 if busy)</div></div>
+      </div>
+    </section>
+
+
+    <!-- ====================== ROUTE OPTIMIZER ====================== -->
+    <section class="view" id="view-route">
+      <div class="grid g-route">
+        <div class="stack">
+          <div class="card">
+            <div class="card-h"><h3>1 · Start point</h3></div>
+            <select id="rtStart" class="sel full"></select>
+          </div>
+          <div class="card">
+            <div class="card-h"><h3>2 · Select places</h3><span class="muted" id="rtCount">0 bins</span></div>
+            <div class="rt-zones" id="rtZones"></div>
+            <label class="rt-lbl">Only bins at least <b id="rtMinL">60%</b> full<input type="range" id="rtMin" min="0" max="100" step="5" value="60"></label>
+            <div class="btn-row">
+              <button class="btn" id="rtPickZones">Add bins of ticked wards</button>
+              <button class="btn" id="rtPickHigh">Auto: top 10 urgent</button>
+            </div>
+            <div class="btn-row"><button class="btn ghost" id="rtClear">Clear selection</button></div>
+            <p class="muted" style="margin-top:6px">Tip: click any bin on the map to add or remove it.</p>
+          </div>
+          <div class="card">
+            <div class="card-h"><h3>3 · Destination</h3></div>
+            <select id="rtPlant" class="sel full"></select>
+            <button class="btn wide accent" id="rtGo" style="margin-top:10px">Optimise route</button>
+          </div>
+          <div class="card">
+            <div class="card-h"><h3>4 · Dispatch via Kafka</h3></div>
+            <select id="rtTruck" class="sel full"></select>
+            <button class="btn wide" id="rtDispatch" style="margin-top:10px" disabled>Dispatch route to truck</button>
+            <p class="muted" style="margin-top:6px">Publishes a record to <code>collection-plans</code>; the truck drives it live on the Command Center.</p>
+          </div>
+        </div>
+        <div class="stack">
+          <div class="card map-card">
+            <div class="card-h"><h3>Route map</h3>
+              <div class="legend"><span><i style="background:#e0574f"></i>as selected</span><span><i style="background:#4caf7d"></i>optimised</span>
+                <span><i style="background:#4fa3d1"></i>selected bin</span><span id="rtRoadTag" class="muted"></span></div>
+            </div>
+            <div id="rtMap"></div>
+          </div>
+          <div class="kpis" id="rtKpis"></div>
+          <div class="grid g-2">
+            <div class="card"><div class="card-h"><h3>Algorithm comparison</h3><span class="muted">same stops, same destination</span></div><div id="rtAlgo"><div class="muted">Select bins and press Optimise.</div></div></div>
+            <div class="card"><div class="card-h"><h3>Destination choice</h3><span class="muted">distance × (1 + 0.6·utilisation)</span></div><div id="rtPlants"></div></div>
+          </div>
+          <div class="grid g-2">
+            <div class="card"><div class="card-h"><h3>Optimised stop sequence</h3></div><div id="rtSeq"></div></div>
+            <div class="card"><div class="card-h"><h3>Which truck?</h3><span class="muted">free capacity vs route load</span></div><div id="rtTrucks"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== ANALYTICS ====================== -->
+    <section class="view" id="view-analytics">
+      <div class="kpis" id="streamKpis"></div>
+      <div class="card">
+        <div class="card-h"><h3>Waste hotspots · where trash is increasing</h3><span class="muted">generation rate (kg/h) from live fill rates vs recent 5-min windows</span></div>
+        <div class="grid g-hot"><div id="hotTable"></div><div class="chart-box tall"><canvas id="chHot"></canvas></div></div>
+      </div>
+      <div class="grid g-2">
+        <div class="card"><div class="card-h"><h3>Tumbling windows · avg fill per zone</h3><span class="muted">zone-aggregates · 5-min windows</span></div><div class="chart-box tall"><canvas id="chWindows"></canvas></div></div>
+        <div class="card"><div class="card-h"><h3>Telemetry scenario mix</h3><span class="muted">normal · demand · surge · anomaly</span></div><div class="chart-box tall"><canvas id="chScenario"></canvas></div></div>
+      </div>
+      <div class="grid g-2">
+        <div class="card"><div class="card-h"><h3>Overflow forecast · soonest ETA</h3><span class="muted">(100 − fill) / rate</span></div><div id="etaTable"></div></div>
+        <div class="card"><div class="card-h"><h3>Alerts by type</h3><span class="muted">anomaly detection</span></div><div class="chart-box tall"><canvas id="chAlerts"></canvas></div></div>
+      </div>
+      <div class="card"><div class="card-h"><h3>All bins · materialised view of bin-analytics</h3><input id="binSearch" class="search" placeholder="filter by bin / zone / status…"></div><div id="binTable" class="table-wrap"></div></div>
+    </section>
+
+    <!-- ====================== FLEET ====================== -->
+    <section class="view" id="view-fleet">
+      <div class="kpis" id="fleetKpis"></div>
+      <div class="truck-grid" id="truckGrid"></div>
+      <div class="grid g-2">
+        <div class="card"><div class="card-h"><h3>Processing plants · capacity &amp; utilisation</h3><span class="muted">baseline intake + today's deliveries</span></div><div id="plantTable"></div></div>
+        <div class="card"><div class="card-h"><h3>Recent collection plans</h3><span class="muted">collection-plans</span></div><div class="feed" id="planFeed"></div></div>
+      </div>
+    </section>
+
+    <!-- ====================== INSIGHTS ====================== -->
+    <section class="view" id="view-insights">
+      <div class="card hero-res">
+        <div class="card-h"><h3>Evaluation · fixed schedule vs WASTEX</h3><span class="muted" id="benchMeta">same city · same seed · 24 simulated hours</span></div>
+        <div class="res-cards" id="resCards"><div class="muted pad">Running the 24-hour evaluation (about 45 s on first start)…</div></div>
+      </div>
+      <div class="grid g-2">
+        <div class="card"><div class="card-h"><h3>Overflowing bins over the day</h3></div><div class="chart-box tall"><canvas id="chBenchSeries"></canvas></div></div>
+        <div class="card"><div class="card-h"><h3>Strategy comparison</h3></div><div class="chart-box tall"><canvas id="chBenchBars"></canvas></div></div>
+      </div>
+      <div class="card"><div class="card-h"><h3>Full metric table</h3></div><div id="benchTable"></div></div>
+      <div class="grid g-3">
+        <div class="card"><div class="card-h"><h3>EDA · ward-level complaints</h3><span class="muted">BBMP via OpenCity</span></div><div id="edaWards"></div></div>
+        <div class="card"><div class="card-h"><h3>EDA · plant capacity (TPD)</h3></div><div class="chart-box tall"><canvas id="chPlants"></canvas></div></div>
+        <div class="card"><div class="card-h"><h3>Fixed BBMP schedule (baseline)</h3></div><div id="edaSchedule"></div></div>
+      </div>
+    </section>
+
+    <!-- ====================== ABOUT ====================== -->
+    <section class="view" id="view-about">
+      <div class="card"><div class="card-h"><h3>System architecture</h3></div><div id="archDiagram" class="arch"></div></div>
+      <div class="grid g-3 explain" id="aboutCards"></div>
+    </section>
+  </main>
+</div>
+<div id="toasts"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="/static/js/util.js"></script>
+<script src="/static/js/command.js"></script>
+<script src="/static/js/pipeline.js"></script>
+<script src="/static/js/lab.js"></script>
+<script src="/static/js/agents.js"></script>
+<script src="/static/js/route.js"></script>
+<script src="/static/js/analytics.js"></script>
+<script src="/static/js/fleet.js"></script>
+<script src="/static/js/insights.js"></script>
+<script src="/static/js/main.js"></script>
+</body>
+</html>
