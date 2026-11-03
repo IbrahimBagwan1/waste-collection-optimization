@@ -12,6 +12,7 @@ WASTEX reads live fill-level data from smart bins and decides, every few minutes
 It streams everything through Kafka, explains every decision, and runs entirely on one laptop.
 
 > Experiential Learning project · Stream Processing and Analytics (AI372IA) · Dept. of AIML, RV College of Engineering · 2026–27
+>
 > Ibrahim Bagwan (1RV24AI404) · Monil Palak Mehta (1RV23AI058) · Joseph Rejo Mathew (1RV23AI040) · Mentor: Dr. Vijayalakshmi M. N.
 
 ![Command Center](docs/screenshots/command.png)
@@ -78,13 +79,13 @@ Our exploratory analysis of the BBMP / OpenCity data pointed to four things a be
 
 ### What you need
 
-| | Required? | Notes |
+| Requirement | Required? | Notes |
 |---|---|---|
-| **Python 3.10 or newer** | yes | <https://www.python.org/downloads/>. On Windows, tick **"Add python.exe to PATH"** during installation. |
-| **Internet connection** | first run | Downloads the Python packages (and the Kafka image if Docker is used). Map tiles and the real-road route drawing also need internet. |
-| **Docker Desktop** | recommended | <https://www.docker.com/products/docker-desktop/>. Runs a real Apache Kafka broker. Without Docker, WASTEX uses a built-in broker that behaves like Kafka, so the project still runs. |
-| **8 GB RAM, 3 GB free disk** | | Docker + Kafka uses about 1.5 GB of RAM. |
-| **Chrome, Edge or Firefox** | yes | Any recent browser. |
+| **Python 3.10 or newer** | Yes | <https://www.python.org/downloads/>. On Windows, tick **"Add python.exe to PATH"** during installation. |
+| **Internet connection** | First run | Downloads the Python packages (and the Kafka image if Docker is used). Map tiles and the real-road route drawing also need internet. |
+| **Docker Desktop** | Recommended | <https://www.docker.com/products/docker-desktop/>. Runs a real Apache Kafka broker. Without Docker, WASTEX uses a built-in broker that behaves like Kafka, so the project still runs. |
+| **8 GB RAM, 3 GB free disk** | Yes | Docker + Kafka uses about 1.5 GB of RAM. |
+| **Chrome, Edge or Firefox** | Yes | Any recent browser. |
 
 ### Windows
 
@@ -93,6 +94,7 @@ Our exploratory analysis of the BBMP / OpenCity data pointed to four things a be
 3. Double-click **`start.bat`**.
 
 The first run takes **3–10 minutes**. The script:
+
 1. creates a private Python environment in `.venv`;
 2. installs the packages listed in `requirements.txt`;
 3. downloads Kafka (about 700 MB, only if Docker is running);
@@ -111,13 +113,7 @@ Keep the black console window open while you use WASTEX. Close it, or press `Ctr
 
 ```bash
 cd wastex
-```
-
-```bash
 chmod +x start.sh
-```
-
-```bash
 ./start.sh
 ```
 
@@ -133,21 +129,25 @@ docker compose down
 python -m venv .venv
 ```
 
+Activate the environment.
+
+On Windows:
+
 ```bash
 .venv\Scripts\activate
 ```
 
-On macOS/Linux, activate with `source .venv/bin/activate` instead.
+On macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Then install the dependencies, start Kafka (optional) and run the app:
 
 ```bash
 pip install -r requirements.txt
-```
-
-```bash
 docker compose up -d
-```
-
-```bash
 python run.py
 ```
 
@@ -217,7 +217,7 @@ python run.py
 
 ## 6. How it works
 
-```
+```text
  IoT bin simulator ──► bin-telemetry ──► Stream processor ──► bin-analytics ─┐
    (140 bins)                            (rates, ETA,          bin-alerts ───┼──► JEV orchestrator
         ▲                                 anomalies,           zone-aggregates   ├─ Waste agent   (what)
@@ -234,7 +234,7 @@ All components communicate only through Kafka topics. A dashboard consumer group
 ### Kafka design
 
 | Topic | Partitions | Key | Written by → read by |
-|---|---|---|---|
+|---|---:|---|---|
 | `bin-telemetry` | 6 | bin id | simulator → stream processor |
 | `bin-analytics` | 6 | bin id | stream processor → JEV |
 | `bin-alerts` | 3 | bin / truck id | stream processor, fleet → JEV |
@@ -297,7 +297,7 @@ On 120 random routes, the live heuristic found the exact optimum 115 times; the 
 
 24 simulated hours on the identical city: 140 bins, 8 trucks, the same random seed. The WASTEX run uses the same agent code as the live system.
 
-| | BBMP schedule (2×/day) | Fixed 4×/day | **WASTEX** |
+| Metric | BBMP schedule (2×/day) | Fixed 4×/day | **WASTEX** |
 |---|---:|---:|---:|
 | Overflow bin-minutes | 6,512 | 2,816 | **467** |
 | Overflow events | 62 | 33 | **15** |
@@ -319,6 +319,7 @@ python -m backend.benchmark
 ```
 
 **Live system on Kafka:**
+
 - all five consumer groups at zero lag;
 - around 140 telemetry messages per second at 1× (several hundred at higher speeds);
 - agent decisions in a few milliseconds;
@@ -326,7 +327,7 @@ python -m backend.benchmark
 
 ## 8. Project layout
 
-```
+```text
 wastex/
 ├── start.bat · start.sh · start-embedded.bat · stop.bat   launchers
 ├── run.py                     starts Docker Kafka (optional) and the server
@@ -385,6 +386,7 @@ With WASTEX running, open a second terminal in the `wastex` folder and run:
 On macOS/Linux use `.venv/bin/python tests/system_check.py`.
 
 It takes about two minutes. It runs 42 checks:
+
 - every pipeline thread and topic;
 - every scenario control;
 - anomaly detection;
@@ -419,5 +421,3 @@ For a quick health check while the system runs, open <http://127.0.0.1:8000/api/
 - **Smart-bin telemetry:** synthetic. No public live feed exists. It is calibrated to the EDA (0.2–0.6% per minute at peak) and generated from a fixed seed, so results are reproducible.
 - **Maps:** Esri basemap, © OpenStreetMap contributors. **Road routes:** OSRM (Project OSRM public server).
 - **Built with:** Python, FastAPI, Apache Kafka 3.7, kafka-python, Leaflet, Chart.js and IBM Plex fonts.
-#   w a s t e - c o l l e c t i o n - o p t i m i z a t i o n  
- 
